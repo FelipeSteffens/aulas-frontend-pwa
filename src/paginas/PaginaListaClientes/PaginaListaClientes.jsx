@@ -1,18 +1,39 @@
-import { Link } from "react-router-dom";
-import Principal from "../../comum/componentes/Principal/Principal"
-import ServicoCliente from "../../comum/servicos/servicoCliente";
+import './PaginaListaClientes.css'
+import { Link, useNavigate } from 'react-router-dom';
+import Principal from '../../comum/componentes/Principal/Principal';
+import ServicoCliente from '../../comum/servicos/ServicoCliente';
+import { useEffect, useState } from 'react';
+import { FaRegEdit } from "react-icons/fa";
 
+const instanciaServicoCliente = new ServicoCliente();
 const PaginaListaClientes = () => {
-    const servicoCliente = new ServicoCliente();
-    const clientesDoLocalStorage = servicoCliente.listar();
+  const navigate = useNavigate()
+  const [listaClientes, setListaClientes] = useState([])
 
-    return <Principal titulo={'Lista de Clientes'} voltarPara={'/'}>
-        <Link to='/cadastro-cliente'>Novo</Link>
 
-        <pre>
-            {JSON.stringify(clientesDoLocalStorage, null, 2)}
-        </pre>
-    </Principal>;
+  useEffect(() => {
+    const clientesDoLocalStorage = instanciaServicoCliente.listar();
+    setListaClientes(clientesDoLocalStorage)
+  }, [])
+
+  const navegarParaEdicao = (idCliente) => {
+    navigate(`/cadastro-cliente/${idCliente}`)
+  }
+
+
+  return (
+    <Principal titulo="Lista de Clientes" voltarPara="/">
+      <Link to="/cadastro-cliente">Novo</Link>
+
+      {listaClientes.map((cliente) => {
+        return <div key={cliente.id} className='pagina-lista-clientes_e_item-cliente'>
+          {cliente.nome}
+          <FaRegEdit size={128} color='red' onClick={() => navegarParaEdicao(cliente.id)} />
+        </div>
+      })}
+
+    </Principal>
+  );
 };
 
 export default PaginaListaClientes;

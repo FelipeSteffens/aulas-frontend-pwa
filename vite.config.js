@@ -17,8 +17,8 @@ export default defineConfig({
         name: 'Aulas Frontend com ReactJS + PWA',
         short_name: 'Aulas Frontend PWA',
         description: 'É um projeto para...',
-        theme_color: '#3f50b5',
-        background_color: '#ff9100',
+        theme_color: '#ffffff',
+        background_color: '#ffffff',
         display: 'standalone',
         icons: [
           {

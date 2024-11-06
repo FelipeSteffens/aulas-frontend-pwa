@@ -32,11 +32,11 @@ const router = createBrowserRouter([
   },
   {
     path: 'lista-clientes',
-    element: <PaginaListaClientes />
+    element: <PaginaListaClientes />,
   },
   {
-    path: 'cadastro-cliente',
-    element: <PaginaCadastroCliente />
+    path: 'cadastro-cliente/:id?',
+    element: <PaginaCadastroCliente />,
   },
 ]);
 
