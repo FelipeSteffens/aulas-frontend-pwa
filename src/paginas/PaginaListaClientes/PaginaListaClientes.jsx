@@ -4,6 +4,7 @@ import Principal from '../../comum/componentes/Principal/Principal';
 import ServicoCliente from '../../comum/servicos/ServicoCliente';
 import { useEffect, useState } from 'react';
 import { FaRegEdit } from "react-icons/fa";
+import { FaTrash } from 'react-icons/fa6';
 
 const instanciaServicoCliente = new ServicoCliente();
 const PaginaListaClientes = () => {
@@ -20,6 +21,13 @@ const PaginaListaClientes = () => {
     navigate(`/cadastro-cliente/${idCliente}`)
   }
 
+  const excluir = (idCliente) => {
+    if (confirm('Tem Certeza?')) {
+      const listaAtualizada =
+        instanciaServicoCliente.excluirCliente(idCliente);
+      setListaClientes(listaAtualizada)
+    }
+  }
 
   return (
     <Principal titulo="Lista de Clientes" voltarPara="/">
@@ -27,8 +35,15 @@ const PaginaListaClientes = () => {
 
       {listaClientes.map((cliente) => {
         return <div key={cliente.id} className='pagina-lista-clientes_e_item-cliente'>
+
           {cliente.nome}
-          <FaRegEdit size={128} color='red' onClick={() => navegarParaEdicao(cliente.id)} />
+          <div className='pagina-lista-clientes_e_item-cliente-acoes'>
+
+            <FaRegEdit size={24} color='black' onClick={() => navegarParaEdicao(cliente.id)} />
+
+            <FaTrash size={24} color='red' onClick={() => excluir(cliente.id)} />
+
+          </div>
         </div>
       })}
 

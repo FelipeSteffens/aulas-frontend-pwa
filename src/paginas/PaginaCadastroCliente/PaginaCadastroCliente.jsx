@@ -5,6 +5,7 @@ import Principal from '../../comum/componentes/Principal/Principal';
 import ServicoCliente from '../../comum/servicos/ServicoCliente';
 import './PaginaCadastroCliente.css';
 import { MASCARA_CELULAR, MASCARA_CPF, formatarComMascara } from '../../comum/utils/mascaras';
+import { toast } from 'react-toastify';
 
 const instanciaServicoCliente = new ServicoCliente();
 
@@ -33,6 +34,13 @@ const PaginaCadastroCliente = () => {
   }, [params.id])
 
   const salvar = () => {
+
+
+    if (!nome || !email) {
+      toast.error('Preencha todos os campos obrigatórios!')
+      return;
+    }
+
     const cliente = {
       id: params.id ? +params.id : Date.now(),
       nome,
